@@ -16,12 +16,14 @@ SECTIONS = ["{WEBPAGE_URL}/aesop1.html",
 def get_fable_section(section_url):
 	"""
 	Function that extracts the hrefs from a section of the webpage
+	
 	Input:
 		section_url (string): The url of the section
 
 	Returns:
 		fable_hrefs (list): A list with all the hrefs found in the section html
 	"""
+	
 	response = requests.get(section_url)
 	soup = BeautifulSoup(response.text, "html.parser")
 	fable_hrefs = [fable_link.get('href') for fable_link in soup.find_all('a')]
@@ -29,7 +31,14 @@ def get_fable_section(section_url):
 
 
 def get_fable_links_list():
+	"""
+	Function that iterates over the sections of the webpage scrapping all their hrefs
+	Input:
+		None
 
+	Returns:
+		fable_links_list (string): A list with all the hrefs found in the sections' htmls
+	"""
 	fable_links_list = []
 
 	for i, section in enumerate(SECTIONS):
@@ -41,7 +50,15 @@ def get_fable_links_list():
 
 
 def remove_non_fable_links(fable_links_list):
+	"""
+	Removes the hrefs that don't link to a fable, in this case the ones that don't start with '/cgi'
+	Input:
+		fable_links_list (list): The list with all the hrefs to filter
 
+	Returns:
+		only_fable_links_list (list): The list with the hrefs that link to a fable in the webpage
+	"""
+	
 	only_fable_links_list = [fable_link for fable_link in fable_links_list if fable_link.startswith('/cgi')]
 	return only_fable_links_list
 
