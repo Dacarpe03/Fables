@@ -77,11 +77,27 @@ def complete_fable_links_urls(fable_links_list):
 	return complete_fable_links_list
 
 
+def save_fable_links(fable_urls_list,
+					 filepath):
+	"""
+	Function that writes the fable urls in a file
+
+	Input:
+		fable_urls_list (string): The list with the fables' urls
+		filepath (string): The path of the file where the urls will be written
+
+	Returns:
+		None
+	"""
+	with open(filepath, "w") as file:
+		for fable_url in fable_urls_list:
+			file.write(fable_url+"\n")
+
+
 if __name__ == "__main__":
 
 	fable_links_list = get_fable_links_list()
 	fable_links_list = remove_non_fable_links(fable_links_list)
-	fable_links_list = complete_fable_links_urls(fable_links_list)
-	for f in fable_links_list:
-		print(f)
+	fable_urls_list = complete_fable_links_urls(fable_links_list)
+	save_fable_links(fable_urls_list, "../Data/fable_urls.txt")
 
