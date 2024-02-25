@@ -1,8 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 
-
+# The webpage containing the fables
 WEBPAGE_URL = "https://www.aesopfables.com"
+
+# Different sections of the webpage where the fables are located
 SECTIONS = ["{WEBPAGE_URL}/aesop1.html",
 			"{WEBPAGE_URL}/aesop1.html",
 			"{WEBPAGE_URL}/aesop3.html",
@@ -12,7 +14,14 @@ SECTIONS = ["{WEBPAGE_URL}/aesop1.html",
 
 
 def get_fable_section(section_url):
+	"""
+	Function that extracts the hrefs from a section of the webpage
+	Input:
+		section_url (string): The url of the section
 
+	Returns:
+		fable_hrefs (list): A list with all the hrefs found in the section html
+	"""
 	response = requests.get(section_url)
 	soup = BeautifulSoup(response.text, "html.parser")
 	fable_hrefs = [fable_link.get('href') for fable_link in soup.find_all('a')]
