@@ -42,7 +42,7 @@ def get_fable_links_list():
 	fable_links_list = []
 
 	for i, section in enumerate(SECTIONS):
-		print(f"Getting fable links from section {i} ({section})")
+		print(f"Getting fable links from section {i+1} ({section})")
 		section_fable_links = get_fable_section(section)
 		fable_links_list += section_fable_links
 
@@ -58,7 +58,7 @@ def remove_non_fable_links(fable_links_list):
 	Returns:
 		only_fable_links_list (list): The list with the hrefs that link to a fable in the webpage
 	"""
-	
+	print("Removing non fable links")
 	only_fable_links_list = [fable_link for fable_link in fable_links_list if fable_link.startswith('/cgi')]
 	return only_fable_links_list
 
@@ -73,6 +73,7 @@ def complete_fable_links_urls(fable_links_list):
 	Returns:
 		complete_fable_links_list (list): The list with the complete fables' urls
 	"""
+	print("Completing fable urls")
 	complete_fable_links_list = [f"{WEBPAGE_URL}{fable_link}" for fable_link in fable_links_list]
 	return complete_fable_links_list
 
@@ -89,10 +90,11 @@ def save_fable_links(fable_urls_list,
 	Returns:
 		None
 	"""
+	print("Writing urls in a file")
 	with open(filepath, "w") as file:
 		for fable_url in fable_urls_list:
 			file.write(fable_url+"\n")
-
+		print("Success")
 
 if __name__ == "__main__":
 
